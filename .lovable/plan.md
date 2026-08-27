@@ -1,58 +1,32 @@
-# Los Gallos Movers — Website Plan
+# Los Gallos Movers — Backend + Claude/External AI Access Plan
 
-A multi-page marketing site with a shared header/footer, bold Colorado-inspired branding (sunset coral → red rooster accent, deep navy text), and separate routes so each page is SEO-friendly.
+Add a secure backend database that collects lead/customer information, plus an app-hosted MCP server so Claude and other external AI clients can query and manage those leads on behalf of signed-in administrators.
 
-## Design direction
+## What we're building
 
-- Palette: warm coral/sunset gradient accents, red primary (matching the rooster logo), off-white background, deep charcoal text.
-- Typography: bold italic display for headings (echoing the uploaded flyer), clean sans for body.
-- Header with logo + nav (Home, About, Gallery, Team, Reviews, Quote, Contact) + phone CTA "720-469-6078".
-- Footer with contact info, phone numbers, email placeholder, service area.
+1. **Lovable Cloud backend** — persistent PostgreSQL database + auth.
+2. **Authentication** — email/password + Google sign-in so we can distinguish admins from the public.
+3. **User roles** — separate `user_roles` table with an `admin` role; all lead access is scoped to admins.
+4. **Leads table** — stores name, phone, email, business, from/to addresses, move date, home size, notes, and status.
+5. **Customer intake form** — public route `/lead` where prospects submit their info; writes directly to the database.
+6. **Admin dashboard** — protected route under `/_authenticated/admin/leads` where leadership can view, search, and update lead status.
+7. **App-hosted MCP server** — exposes tools to external AI clients (Claude, ChatGPT, etc.):
+   - `list_leads` — list recent leads (admin only)
+   - `get_lead` — read a single lead (admin only)
+   - `create_lead` — add a new lead (admin only)
+   - `update_lead_status` — change status (e.g. new, contacted, booked, closed) (admin only)
+   - `add_follow_up_note` — record a follow-up message/note on a lead (admin only)
+8. **OAuth 2.1** — secures the MCP server; only users who sign in as admins can invoke the tools.
 
-## Routes
+## Out of scope
 
-```text
-src/routes/
-  __root.tsx       (shared header + footer, updated meta)
-  index.tsx        Home — hero with skyline + rooster, tagline, CTA to Quote, highlight strip (About/Team/Reviews teasers)
-  about.tsx        Company story, mission, why choose us, service list
-  gallery.tsx      "On the Job" photo grid (placeholder images, lightbox-style hover)
-  team.tsx         Team member cards (placeholder photos, name, role, short bio)
-  reviews.tsx      Customer review cards with star ratings (placeholder testimonials)
-  quote.tsx        Free quote form (UI only): name, phone, email, move date, from/to ZIP, home size, notes → shows toast on submit
-  contact.tsx      Phone (720-469-6078), dispatch phone placeholder, business email placeholder, service area, hours, contact form placeholder
-```
+- Actual email/SMS sending from the MCP tools (we'll record the follow-up note; wiring a live email provider is a separate integration).
+- Public, unauthenticated access to the leads data.
+- Replacing the existing Free Quote form — the leads form is a separate, dedicated intake path.
 
-## Shared components (`src/components/`)
+## Technical notes
 
-- `SiteHeader.tsx` — logo mark + nav + phone CTA, mobile hamburger via shadcn Sheet.
-- `SiteFooter.tsx` — contact summary, nav, copyright.
-- `SectionHeading.tsx` — reusable eyebrow + heading pattern.
-
-## Content placeholders
-
-- Team: 4 members with generated portrait-style images.
-- Gallery: 6–8 generated moving/job photos.
-- Reviews: 6 fabricated testimonials with 5-star ratings, clearly swappable.
-- Contact: phone `720-469-6078`, dispatch `(add second number)`, email `info@losgallosmovers.com` — all clearly marked as placeholders for you to replace.
-
-## Design system
-
-- Update `src/styles.css` tokens: primary red (rooster), sunset gradient variable, warm neutral background, dark foreground. Keep dark mode tokens sensible but design targets light mode.
-- All colors via semantic tokens (no hardcoded hex in components).
-
-## SEO / meta
-
-- Update `__root.tsx` defaults to Los Gallos Movers branding.
-- Each route sets its own `head()` with unique title, description, og:title, og:description.
-- Home hero image also wired as og:image on `/`.
-
-## Assets
-
-- Generate: hero skyline+rooster composite, rooster logo mark (transparent PNG), 4 team portraits, 6 job photos. Stored as Lovable Assets and imported.
-
-## Out of scope (this pass)
-
-- No backend: quote form is UI only (toast confirmation, no email/db).
-- No CMS: content is hardcoded placeholders you can edit later.
-- No blog/booking system.
+- All database access uses Supabase RLS scoped to the `admin` role.
+- MCP tools use `supabaseForUser` from the verified OAuth token, so RLS applies to the signed-in admin.
+- The MCP server mounts at `/mcp`.
+- OAuth consent route at `/.lovable/oauth/consent`.
