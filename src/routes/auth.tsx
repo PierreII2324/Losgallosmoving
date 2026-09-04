@@ -130,7 +130,7 @@ function Auth() {
                 This account is not an admin. Leadership access is required.
               </p>
               {isFirstAdmin && (
-                <Button onClick={becomeFirstAdmin} disabled={loading} className="w-full">
+                <Button onClick={onBecomeFirstAdmin} disabled={loading} className="w-full">
                   Become first admin
                 </Button>
               )}
