@@ -103,11 +103,12 @@ function Auth() {
     setLoading(false);
   }
 
-  async function becomeFirstAdmin() {
+  const makeFirstAdmin = useServerFn(becomeFirstAdmin);
+
+  async function onBecomeFirstAdmin() {
     setLoading(true);
-    const { becomeFirstAdmin: makeAdmin } = await import("@/lib/auth.functions");
     try {
-      await makeAdmin();
+      await makeFirstAdmin();
       navigate({ to: "/admin/leads" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not become admin");
