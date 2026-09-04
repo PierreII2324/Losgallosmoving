@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "sdk_version": "2.0.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://mmotgbzgkkypmbgrwfni.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "gallos-moving-showcase",
+      "version": "0.1.0",
+      "title": "Gallos Moving Showcase"
+    },
+    "tools": [
+      {
+        "name": "list_leads",
+        "title": "List leads",
+        "description": "List recent customer leads. Optionally filter by status or limit the number of results.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "Optional status filter: new, contacted, quoted, booked, closed, or lost."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Optional maximum number of leads to return."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_lead",
+        "title": "Get lead",
+        "description": "Read a single customer lead by its ID.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The lead UUID."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_lead",
+        "title": "Create lead",
+        "description": "Add a new customer lead to the database.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Customer full name."
+            },
+            "phone": {
+              "type": "string",
+              "description": "Phone number."
+            },
+            "email": {
+              "type": "string",
+              "description": "Email address."
+            },
+            "business": {
+              "type": "string",
+              "description": "Business name, if commercial."
+            },
+            "from_address": {
+              "type": "string",
+              "description": "Origin address."
+            },
+            "to_address": {
+              "type": "string",
+              "description": "Destination address."
+            },
+            "move_date": {
+              "type": "string",
+              "description": "Move date as an ISO 8601 date string."
+            },
+            "home_size": {
+              "type": "string",
+              "description": "Home or office size."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Additional notes about the move."
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "update_lead_status",
+        "title": "Update lead status",
+        "description": "Change the status of a lead, for example from new to contacted or booked.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The lead UUID."
+            },
+            "status": {
+              "type": "string",
+              "description": "New status: new, contacted, quoted, booked, closed, or lost."
+            }
+          },
+          "required": [
+            "id",
+            "status"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "add_follow_up_note",
+        "title": "Add follow-up note",
+        "description": "Append a follow-up note to a lead's record.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The lead UUID."
+            },
+            "note": {
+              "type": "string",
+              "description": "Note text to append."
+            }
+          },
+          "required": [
+            "id",
+            "note"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
