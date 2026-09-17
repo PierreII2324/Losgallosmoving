@@ -69,6 +69,8 @@ function About() {
           </div>
         </div>
       </section>
+
+      <SeniorSection />
     </div>
   );
 }

@@ -96,6 +96,8 @@ function Home() {
         </div>
       </section>
 
+      <SeniorSection />
+
       <section className="relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: "var(--gradient-sunset)" }} />
         <div className="relative mx-auto max-w-4xl px-4 py-20 text-center">
