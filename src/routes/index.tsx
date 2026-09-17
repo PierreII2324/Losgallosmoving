@@ -4,6 +4,7 @@ import heroImg from "@/assets/hero-skyline.jpg";
 import rooster from "@/assets/rooster-logo.png";
 import job1 from "@/assets/job-1.jpg";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SeniorSection } from "@/components/SeniorSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
