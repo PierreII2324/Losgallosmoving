@@ -18,9 +18,11 @@ export const Route = createFileRoute("/.lovable/oauth/consent")({
     const authorizationId = new URLSearchParams(location.search).get("authorization_id")!;
     const { data, error } = await supabase.auth.oauth.getAuthorizationDetails(authorizationId);
     if (error) throw error;
-    const immediate = data?.redirect_url ?? data?.redirect_to;
-    if (immediate && !data?.client) throw redirect({ href: immediate });
-    return data;
+    const raw = (data ?? {}) as Record<string, unknown>;
+    const immediate = (raw.redirect_url ?? raw.redirect_to) as string | undefined;
+    const client = raw.client as { name?: string } | undefined;
+    if (immediate && !client) throw redirect({ href: immediate });
+    return { clientName: client?.name ?? null };
   },
   component: Consent,
   errorComponent: ({ error }) => (
@@ -46,7 +48,8 @@ function Consent() {
       setError(oauthError.message);
       return;
     }
-    const target = data?.redirect_url ?? data?.redirect_to;
+    const raw = (data ?? {}) as Record<string, unknown>;
+    const target = (raw.redirect_url ?? raw.redirect_to) as string | undefined;
     if (!target) {
       setBusy(false);
       setError("No redirect returned by the authorization server.");
@@ -59,10 +62,10 @@ function Consent() {
     <main className="flex flex-1 flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm">
         <h1 className="font-display text-2xl text-foreground">
-          Connect {details?.client?.name ?? "an app"} to your account
+          Connect {details?.clientName ?? "an app"} to your account
         </h1>
         <p className="mt-2 text-muted-foreground">
-          This lets {details?.client?.name ?? "the client"} use this app as you.
+          This lets {details?.clientName ?? "the client"} use this app as you.
         </p>
         {error && <p role="alert" className="mt-4 text-sm text-destructive">{error}</p>}
         <div className="mt-6 flex gap-3">

@@ -9,12 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TeamRouteImport } from './routes/team'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LeadRouteImport } from './routes/lead'
-import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
@@ -25,11 +23,6 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
-const TeamRoute = TeamRouteImport.update({
-  id: '/team',
-  path: '/team',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
@@ -48,11 +41,6 @@ const McpRoute = McpRouteImport.update({
 const LeadRoute = LeadRouteImport.update({
   id: '/lead',
   path: '/lead',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -106,12 +94,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRouteWithChildren
   '/contact': typeof ContactRoute
-  '/gallery': typeof GalleryRoute
   '/lead': typeof LeadRoute
   '/mcp': typeof McpRoute
   '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
-  '/team': typeof TeamRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -122,12 +108,10 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRouteWithChildren
   '/contact': typeof ContactRoute
-  '/gallery': typeof GalleryRoute
   '/lead': typeof LeadRoute
   '/mcp': typeof McpRoute
   '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
-  '/team': typeof TeamRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -140,12 +124,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRouteWithChildren
   '/contact': typeof ContactRoute
-  '/gallery': typeof GalleryRoute
   '/lead': typeof LeadRoute
   '/mcp': typeof McpRoute
   '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
-  '/team': typeof TeamRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -158,12 +140,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
-    | '/gallery'
     | '/lead'
     | '/mcp'
     | '/quote'
     | '/reviews'
-    | '/team'
     | '/.well-known/oauth-protected-resource'
     | '/auth/callback'
     | '/.lovable/oauth/consent'
@@ -174,12 +154,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
-    | '/gallery'
     | '/lead'
     | '/mcp'
     | '/quote'
     | '/reviews'
-    | '/team'
     | '/.well-known/oauth-protected-resource'
     | '/auth/callback'
     | '/.lovable/oauth/consent'
@@ -191,12 +169,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
-    | '/gallery'
     | '/lead'
     | '/mcp'
     | '/quote'
     | '/reviews'
-    | '/team'
     | '/.well-known/oauth-protected-resource'
     | '/auth/callback'
     | '/.lovable/oauth/consent'
@@ -209,25 +185,16 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRouteWithChildren
   ContactRoute: typeof ContactRoute
-  GalleryRoute: typeof GalleryRoute
   LeadRoute: typeof LeadRoute
   McpRoute: typeof McpRoute
   QuoteRoute: typeof QuoteRoute
   ReviewsRoute: typeof ReviewsRoute
-  TeamRoute: typeof TeamRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/team': {
-      id: '/team'
-      path: '/team'
-      fullPath: '/team'
-      preLoaderRoute: typeof TeamRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/reviews': {
       id: '/reviews'
       path: '/reviews'
@@ -254,13 +221,6 @@ declare module '@tanstack/react-router' {
       path: '/lead'
       fullPath: '/lead'
       preLoaderRoute: typeof LeadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -356,12 +316,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRouteWithChildren,
   ContactRoute: ContactRoute,
-  GalleryRoute: GalleryRoute,
   LeadRoute: LeadRoute,
   McpRoute: McpRoute,
   QuoteRoute: QuoteRoute,
   ReviewsRoute: ReviewsRoute,
-  TeamRoute: TeamRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,

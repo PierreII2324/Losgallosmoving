@@ -8,8 +8,6 @@ import rooster from "@/assets/rooster-logo.png";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/team", label: "Team" },
   { to: "/reviews", label: "Reviews" },
   { to: "/quote", label: "Free Quote" },
   { to: "/contact", label: "Contact" },
