@@ -23,8 +23,6 @@ export function SiteFooter() {
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide">Company</h4>
           <ul className="space-y-2 text-sm text-background/70">
             <li><Link to="/about" className="hover:text-primary">About</Link></li>
-            <li><Link to="/team" className="hover:text-primary">Our Team</Link></li>
-            <li><Link to="/gallery" className="hover:text-primary">On The Job</Link></li>
             <li><Link to="/reviews" className="hover:text-primary">Reviews</Link></li>
           </ul>
         </div>
