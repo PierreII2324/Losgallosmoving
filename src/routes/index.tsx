@@ -4,6 +4,7 @@ import heroImg from "@/assets/hero-skyline.jpg";
 import rooster from "@/assets/rooster-logo.png";
 import job1 from "@/assets/job-1.jpg";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SeniorSection } from "@/components/SeniorSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,6 +95,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <SeniorSection />
 
       <section className="relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: "var(--gradient-sunset)" }} />

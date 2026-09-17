@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Heart, Users, Award, Sparkles } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SeniorSection } from "@/components/SeniorSection";
 import job3 from "@/assets/job-3.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -68,6 +69,8 @@ function About() {
           </div>
         </div>
       </section>
+
+      <SeniorSection />
     </div>
   );
 }
